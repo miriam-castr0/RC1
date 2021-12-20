@@ -6,12 +6,15 @@ node n1 {
 	!
 	interface eth2
 	 ip address 10.0.1.254/23
+	 mac address 00:00:00:00:00:00
 	!
 	interface eth1
 	 ip address 196.168.0.1/30
+	 mac address 00:00:00:00:00:00
 	!
 	interface eth0
 	 ip address 196.168.0.21/30
+	 mac address 00:00:00:00:00:00
 	!
     }
     canvas c1
@@ -376,7 +379,7 @@ node n21 {
 	hostname n21
 	!
 	interface eth0
-	 ip address 10.0.0.6/25
+	 ip address 10.0.0.8/25
 	!
     }
     canvas c1
@@ -392,7 +395,7 @@ node n22 {
 	hostname n22
 	!
 	interface eth0
-	 ip address 10.0.0.5/25
+	 ip address 10.0.0.6/25
 	!
     }
     canvas c1
@@ -408,7 +411,7 @@ node n23 {
 	hostname n23
 	!
 	interface eth0
-	 ip address 10.0.0.3/25
+	 ip address 10.0.0.7/25
 	!
     }
     canvas c1
@@ -424,7 +427,7 @@ node n24 {
 	hostname n24
 	!
 	interface eth0
-	 ip address 10.0.0.1/25
+	 ip address 10.0.0.10/25
 	!
     }
     canvas c1
@@ -503,7 +506,7 @@ node n29 {
 	hostname n29
 	!
 	interface eth0
-	 ip address 10.0.0.2/25
+	 ip address 10.0.0.9/25
 	!
     }
     canvas c1
