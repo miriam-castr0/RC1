@@ -2,7 +2,7 @@ node n1 {
     type router
     model router
     network-config {
-	hostname n1
+	hostname R1
 	!
 	interface eth2
 	 ip address 10.0.1.254/23
@@ -16,7 +16,7 @@ node n1 {
     }
     canvas c1
     iconcoords {354.0 252.0}
-    labelcoords {359.3333333333333 274.6666666666667}
+    labelcoords {365.3333333333333 238.66666666666669}
     interface-peer {eth0 n7}
     interface-peer {eth1 n2}
     interface-peer {eth2 n8}
@@ -26,7 +26,7 @@ node n2 {
     type router
     model router
     network-config {
-	hostname n2
+	hostname R2
 	!
 	interface eth3
 	 ip address 10.0.0.126/25
@@ -43,7 +43,7 @@ node n2 {
     }
     canvas c1
     iconcoords {653.0 254.0}
-    labelcoords {653.0 286.0}
+    labelcoords {651.0 238.0}
     interface-peer {eth0 n6}
     interface-peer {eth1 n1}
     interface-peer {eth2 n5}
@@ -54,7 +54,7 @@ node n3 {
     type router
     model router
     network-config {
-	hostname n4
+	hostname R4
 	!
 	interface eth2
 	 ip address 10.0.0.190/27
@@ -78,7 +78,7 @@ node n4 {
     type router
     model router
     network-config {
-	hostname n3
+	hostname R3
 	!
 	interface eth3
 	 ip address 10.0.0.158/27
@@ -106,7 +106,7 @@ node n5 {
     type router
     model router
     network-config {
-	hostname n6
+	hostname R6
 	!
 	interface eth1
 	 ip address 196.168.0.26/30
@@ -116,8 +116,8 @@ node n5 {
 	!
     }
     canvas c1
-    iconcoords {489.0 368.0}
-    labelcoords {489.0 400.0}
+    iconcoords {493.0 362.0}
+    labelcoords {481.0 342.0}
     interface-peer {eth0 n4}
     interface-peer {eth1 n2}
 }
@@ -126,7 +126,7 @@ node n6 {
     type router
     model router
     network-config {
-	hostname n7
+	hostname R7
 	!
 	interface eth1
 	 ip address 196.168.0.6/30
@@ -137,7 +137,7 @@ node n6 {
     }
     canvas c1
     iconcoords {745.0 382.0}
-    labelcoords {745.0 414.0}
+    labelcoords {791.0 382.0}
     interface-peer {eth0 n3}
     interface-peer {eth1 n2}
 }
@@ -146,7 +146,7 @@ node n7 {
     type router
     model router
     network-config {
-	hostname n5
+	hostname R5
 	!
 	interface eth1
 	 ip address 196.168.0.18/30
@@ -157,7 +157,7 @@ node n7 {
     }
     canvas c1
     iconcoords {235.0 382.0}
-    labelcoords {235.0 414.0}
+    labelcoords {195.0 392.0}
     interface-peer {eth0 n1}
     interface-peer {eth1 n4}
 }
@@ -202,7 +202,7 @@ node n10 {
     }
     canvas c1
     iconcoords {185.0 580.0}
-    labelcoords {185.0 604.0}
+    labelcoords {171.0 570.0}
     interface-peer {e0 n4}
     interface-peer {e1 n20}
     interface-peer {e2 n19}
@@ -332,8 +332,8 @@ node n18 {
 	!
     }
     canvas c1
-    iconcoords {253.0 706.0}
-    labelcoords {253.0 738.0}
+    iconcoords {277.0 692.0}
+    labelcoords {277.0 724.0}
     interface-peer {eth0 n10}
 }
 
@@ -396,8 +396,8 @@ node n22 {
 	!
     }
     canvas c1
-    iconcoords {855.0 20.0}
-    labelcoords {855.0 52.0}
+    iconcoords {781.0 20.0}
+    labelcoords {755.0 50.0}
     interface-peer {eth0 n28}
 }
 
@@ -489,7 +489,7 @@ node n28 {
     }
     canvas c1
     iconcoords {853.0 114.0}
-    labelcoords {853.0 138.0}
+    labelcoords {831.0 108.0}
     interface-peer {e0 n11}
     interface-peer {e1 n22}
     interface-peer {e2 n23}
@@ -510,6 +510,25 @@ node n29 {
     iconcoords {941.0 134.0}
     labelcoords {941.0 166.0}
     interface-peer {eth0 n28}
+    custom-config {
+	custom-config-id service:HTTP
+	custom-command HTTP
+	config {
+	dirs=('/etc/apache2', '/var/run/apache2', '/var/log/apache2', '/var/lock/apache2', '/var/www', '/run/lock', )
+	startidx=80
+	cmdup=('mkdir -p /run/lock', 'mkdir -p /var/log/apache2', 'apache2ctl start', )
+	}
+    }
+    custom-config {
+	custom-config-id service:FTP
+	custom-command FTP
+	config {
+	startidx=80
+	cmdup=('chmod a-w /var/run/vsftpd/empty', 'chmod a-w /var/ftp', 'vsftpd ./vsftpd.conf', )
+	starttime=
+	}
+    }
+    services {DefaultRoute FTP HTTP SSH}
 }
 
 link l1 {
