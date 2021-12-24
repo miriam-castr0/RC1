@@ -68,6 +68,10 @@ node n1 {
 	  interface eth1 area 0.0.0.0
 	  interface eth2 area 0.0.0.0
 	!
+	ip route 10.0.1.0/25 196.168.0.2
+	ip route 10.0.1.192/27 196.168.0.22
+	ip route 10.0.1.224/27 196.168.0.22
+	!
 	
 	}
     }
@@ -121,7 +125,7 @@ node n1 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
 }
 
 node n2 {
@@ -151,6 +155,71 @@ node n2 {
     interface-peer {eth2 n6}
     interface-peer {eth3 n13}
     custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.2/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.5/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth2
+	  ip address 196.168.0.25/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth3
+	  ip address 10.0.1.126/25
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.2
+	  network 196.168.0.2/30 area 0
+	  network 196.168.0.5/30 area 0
+	  network 196.168.0.25/30 area 0
+	  network 10.0.1.126/25 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.2
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	  interface eth2 area 0.0.0.0
+	  interface eth3 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.1
+	ip route 10.0.1.128/26 196.168.0.1
+	ip route 10.0.1.192/27 196.168.0.26
+	ip route 10.0.1.224/27 196.168.0.6
+	!
+	
+	}
+    }
+    custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
 	config {
@@ -167,7 +236,7 @@ node n2 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
 }
 
 node n3 {
@@ -176,14 +245,14 @@ node n3 {
     network-config {
 	hostname n3
 	!
+	interface eth2
+	 ip address 196.168.0.30/30
+	!
 	interface eth0
 	 ip address 196.168.0.14/30
 	!
 	interface eth3
 	 ip address 10.0.1.222/27
-	!
-	interface eth2
-	 ip address 196.168.0.28/30
 	!
 	interface eth1
 	 ip address 196.168.0.17/30
@@ -195,6 +264,70 @@ node n3 {
     interface-peer {eth1 n5}
     interface-peer {eth2 n6}
     interface-peer {eth3 n12}
+    custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.14/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.17/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth2
+	  ip address 196.168.0.28/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth3
+	  ip address 10.0.1.222/27
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.14
+	  network 196.168.0.14/30 area 0
+	  network 196.168.0.17/30 area 0
+	  network 196.168.0.28/30 area 0
+	  network 10.0.1.222/27 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.14
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	  interface eth2 area 0.0.0.0
+	  interface eth3 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.18
+	ip route 10.0.1.128/26 196.168.0.18
+	ip route 10.0.1.0/25 196.168.0.29
+	ip route 10.0.1.224/27 196.168.0.13
+	!
+	}
+    }
     custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
@@ -212,7 +345,7 @@ node n3 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
     interface-peer {eth0 n4}
 }
 
@@ -235,6 +368,53 @@ node n5 {
     interface-peer {eth0 n1}
     interface-peer {eth1 n3}
     custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.22/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.18/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.22
+	  network 196.168.0.22/30 area 0
+	  network 196.168.0.18/30 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.22
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.21
+	ip route 10.0.1.128/26 196.168.0.21
+	ip route 10.0.1.0/25 196.168.0.21
+	ip route 10.0.1.192/27 196.168.0.17
+	ip route 10.0.1.224/27 196.168.0.17
+	!
+	
+	}
+    }
+    custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
 	config {
@@ -251,7 +431,7 @@ node n5 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
 }
 
 node n6 {
@@ -273,6 +453,52 @@ node n6 {
     interface-peer {eth0 n3}
     interface-peer {eth1 n2}
     custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.29/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.26/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.29
+	  network 196.168.0.29/30 area 0
+	  network 196.168.0.26/30 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.29
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.25
+	ip route 10.0.1.128/26 196.168.0.25
+	ip route 10.0.1.0/25 196.168.0.25
+	ip route 10.0.1.192/27 196.168.0.30
+	ip route 10.0.1.224/27 196.168.0.30
+	!
+	}
+    }
+    custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
 	config {
@@ -289,7 +515,7 @@ node n6 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
 }
 
 node n7 {
@@ -310,6 +536,53 @@ node n7 {
     labelcoords {667.0 376.0}
     interface-peer {eth0 n2}
     custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.6/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.9/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.6
+	  network 196.168.0.6/30 area 0
+	  network 196.168.0.9/30 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.6
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.5
+	ip route 10.0.1.128/26 196.168.0.5
+	ip route 10.0.1.0/25 196.168.0.5
+	ip route 10.0.1.192/27 196.168.0.10
+	ip route 10.0.1.224/27 196.168.0.10
+	!
+	
+	}
+    }
+    custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
 	config {
@@ -326,7 +599,7 @@ node n7 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
     interface-peer {eth1 n4}
 }
 
@@ -1112,6 +1385,60 @@ node n4 {
     interface-peer {eth1 n7}
     interface-peer {eth2 n9}
     custom-config {
+	custom-config-id service:zebra
+	custom-command zebra
+	config {
+	files=('/usr/local/etc/quagga/Quagga.conf', 'quaggaboot.sh', '/usr/local/etc/quagga/vtysh.conf', )
+	}
+    }
+    custom-config {
+	custom-config-id service:zebra:/usr/local/etc/quagga/Quagga.conf
+	custom-command /usr/local/etc/quagga/Quagga.conf
+	config {
+	interface eth0
+	  ip address 196.168.0.13/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth1
+	  ip address 196.168.0.10/30
+	  ip ospf network point-to-point
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	interface eth2
+	  ip address 10.0.1.254/27
+	  ip ospf hello-interval 2
+	  ip ospf dead-interval 6
+	  ip ospf retransmit-interval 5
+	  
+	!
+	router ospf
+	  router-id 196.168.0.13
+	  network 196.168.0.13/30 area 0
+	  network 196.168.0.10/30 area 0
+	  network 10.0.1.254/27 area 0
+	!
+	router ospf6
+	  instance-id 65
+	  router-id 196.168.0.13
+	  interface eth0 area 0.0.0.0
+	  interface eth1 area 0.0.0.0
+	  interface eth2 area 0.0.0.0
+	!
+	ip route 10.0.0.0/24 196.168.0.14
+	ip route 10.0.1.128/26 196.168.0.14
+	ip route 10.0.1.0/25 196.168.0.9
+	ip route 10.0.1.192/27 196.168.0.14
+	!
+	}
+    }
+    custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute
 	config {
@@ -1128,7 +1455,7 @@ node n4 {
 	
 	}
     }
-    services {OSPFv2 OSPFv3 zebra IPForward}
+    services {zebra IPForward}
 }
 
 node n11 {
@@ -1145,6 +1472,23 @@ node n11 {
     iconcoords {375.0 536.0}
     labelcoords {375.0 568.0}
     interface-peer {eth0 n12}
+    custom-config {
+	custom-config-id service:DefaultRoute
+	custom-command DefaultRoute
+	config {
+	files=('defaultroute.sh', )
+	}
+    }
+    custom-config {
+	custom-config-id service:DefaultRoute:defaultroute.sh
+	custom-command defaultroute.sh
+	config {
+	#!/bin/sh
+	# auto-generated by DefaultRoute service (utility.py)
+	ip route add default via 10.0.1.222
+	
+	}
+    }
     custom-config {
 	custom-config-id service:DHCP
 	custom-command DHCP
