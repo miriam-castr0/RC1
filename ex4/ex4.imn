@@ -1224,8 +1224,8 @@ node n29 {
 	!
     }
     canvas c1
-    iconcoords {805.0 507.0}
-    labelcoords {849.0 507.0}
+    iconcoords {809.0 507.0}
+    labelcoords {853.0 507.0}
     custom-config {
 	custom-config-id service:DefaultRoute
 	custom-command DefaultRoute

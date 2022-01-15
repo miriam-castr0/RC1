@@ -6,13 +6,12 @@ node n1 {
 	!
 	interface eth0
 	 ip address 10.0.0.10/24
-	 ipv6 address 2001::10/64
 	 mac address 00:00:00:aa:00:00
 	!
     }
     canvas c1
-    iconcoords {141.0 264.0}
-    labelcoords {141.0 296.0}
+    iconcoords {141.0 262.6666666666667}
+    labelcoords {141.0 294.6666666666667}
     services {DefaultRoute FTP HTTP SSH}
     interface-peer {eth0 n2}
     custom-config {
@@ -97,13 +96,12 @@ node n5 {
 	!
 	interface eth0
 	 ip address 10.0.0.23/24
-	 ipv6 address 2001::23/64
 	 mac address 00:00:00:aa:00:04
 	!
     }
     canvas c1
-    iconcoords {119.0 93.0}
-    labelcoords {119.0 125.0}
+    iconcoords {117.66666666666667 93.0}
+    labelcoords {117.66666666666667 125.0}
     services {DefaultRoute}
     interface-peer {eth0 n3}
 }
@@ -116,7 +114,6 @@ node n6 {
 	!
 	interface eth0
 	 ip address 10.0.0.24/24
-	 ipv6 address 2001::24/64
 	 mac address 00:00:00:aa:00:05
 	!
     }
@@ -135,13 +132,12 @@ node n7 {
 	!
 	interface eth0
 	 ip address 10.0.0.25/24
-	 ipv6 address 2001::25/64
 	 mac address 00:00:00:aa:00:06
 	!
     }
     canvas c1
-    iconcoords {453.0 93.0}
-    labelcoords {453.0 125.0}
+    iconcoords {454.3333333333333 93.0}
+    labelcoords {454.3333333333333 125.0}
     services {DefaultRoute}
     interface-peer {eth0 n3}
 }
@@ -154,13 +150,12 @@ node n8 {
 	!
 	interface eth0
 	 ip address 10.0.0.20/24
-	 ipv6 address 2001::20/64
 	 mac address 00:00:00:aa:00:01
 	!
     }
     canvas c1
-    iconcoords {116.0 387.0}
-    labelcoords {116.0 419.0}
+    iconcoords {113.33333333333333 387.0}
+    labelcoords {113.33333333333333 419.0}
     services {DefaultRoute}
     interface-peer {eth0 n4}
 }
@@ -173,13 +168,12 @@ node n9 {
 	!
 	interface eth0
 	 ip address 10.0.0.22/24
-	 ipv6 address 2001::22/64
 	 mac address 00:00:00:aa:00:03
 	!
     }
     canvas c1
-    iconcoords {289.0 454.0}
-    labelcoords {289.0 486.0}
+    iconcoords {291.6666666666667 454.0}
+    labelcoords {291.6666666666667 486.0}
     services {DefaultRoute}
     interface-peer {eth0 n4}
 }
@@ -192,7 +186,6 @@ node n10 {
 	!
 	interface eth0
 	 ip address 10.0.0.21/24
-	 ipv6 address 2001::21/64
 	 mac address 00:00:00:aa:00:02
 	!
     }

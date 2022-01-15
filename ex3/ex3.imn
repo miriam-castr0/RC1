@@ -854,8 +854,8 @@ node n18 {
 	!
     }
     canvas c1
-    iconcoords {334.0 127.0}
-    labelcoords {318.0 105.0}
+    iconcoords {336.0 127.0}
+    labelcoords {320.0 105.0}
     interface-peer {eth0 n8}
     custom-config {
 	custom-config-id service:DefaultRoute
@@ -953,8 +953,8 @@ node n21 {
 	!
     }
     canvas c1
-    iconcoords {248.16666666666669 664.5}
-    labelcoords {248.16666666666669 696.5}
+    iconcoords {250.16666666666669 664.5}
+    labelcoords {250.16666666666669 696.5}
     interface-peer {eth0 n12}
     custom-config {
 	custom-config-id service:DefaultRoute
@@ -1019,8 +1019,8 @@ node n23 {
 	!
     }
     canvas c1
-    iconcoords {188.0 486.0}
-    labelcoords {188.0 518.0}
+    iconcoords {190.0 484.0}
+    labelcoords {190.0 516.0}
     interface-peer {eth0 n12}
     custom-config {
 	custom-config-id service:DefaultRoute
@@ -1087,8 +1087,8 @@ node n25 {
 	!
     }
     canvas c1
-    iconcoords {745.0 82.0}
-    labelcoords {707.0 80.0}
+    iconcoords {745.0 80.0}
+    labelcoords {707.0 78.0}
     interface-peer {eth0 n10}
     custom-config {
 	custom-config-id service:DefaultRoute
@@ -1121,8 +1121,8 @@ node n26 {
 	!
     }
     canvas c1
-    iconcoords {867.0 111.0}
-    labelcoords {909.0 137.0}
+    iconcoords {867.0 107.0}
+    labelcoords {909.0 133.0}
     interface-peer {eth0 n13}
     custom-config {
 	custom-config-id service:DefaultRoute
@@ -1469,14 +1469,15 @@ node n11 {
 	!
     }
     canvas c1
-    iconcoords {375.0 536.0}
-    labelcoords {375.0 568.0}
+    iconcoords {377.0 538.0}
+    labelcoords {377.0 570.0}
     interface-peer {eth0 n12}
     custom-config {
 	custom-config-id service:DHCP
 	custom-command DHCP
 	config {
 	files=('/etc/dhcp/dhcpd.conf', )
+	startidx=
 	starttime=30
 	}
     }
